@@ -81,7 +81,7 @@ public class SpeakerAlign extends Command {
                     endLoop = true;
                 }
 
-                swerve.drive(new Translation2d(x,0), rot, false);
+                swerve.drive(new Translation2d(0,0), rot, false);
 
                 if (Constants.smartEnable) {
                     SmartDashboard.putBoolean("SpeakerAlign", true);

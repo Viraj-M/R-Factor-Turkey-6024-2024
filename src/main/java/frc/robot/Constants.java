@@ -42,9 +42,9 @@ public class Constants {
     public static final double maxSpeed = 0.5;
     public static final boolean leftInvert = false; 
     public static final boolean rightInvert = true; 
-    public static final double absoluteOffset = 0.58;
+    public static final double absoluteOffset = 0.582;
     public static final double MaxPose = 0.3;
-    public static final double MinPose = -0.02;
+    public static final double MinPose = 0;
     public static final int absoluteInvert = -1;
     public static final double kp = 13;
     public static final double kd = 0.03;
@@ -87,7 +87,7 @@ public class Constants {
     public static final boolean leftInvert = false;
     public static final int climberRight = 23;
     public static final boolean rightInvert = false;
-    public static final double maxPose = 6.5;
+    public static final double maxPose = 2600;
     public static final double minPose = 0;
   }
 

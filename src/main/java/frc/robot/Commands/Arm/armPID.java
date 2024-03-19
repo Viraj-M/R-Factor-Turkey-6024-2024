@@ -33,8 +33,8 @@ public class armPID extends Command {
 
     if (speed > Constants.Arm.maxSpeed) {
       speed = Constants.Arm.maxSpeed;
-    } else if (speed < -Constants.Arm.maxSpeed-0.1) {
-      speed = -Constants.Arm.maxSpeed-0.1;
+    } else if (speed < -Constants.Arm.maxSpeed+0.2) {
+      speed = -Constants.Arm.maxSpeed+0.2;
     }
     Arm.setMotors(speed);
 

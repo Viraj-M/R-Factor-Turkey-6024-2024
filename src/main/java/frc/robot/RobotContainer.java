@@ -35,42 +35,45 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-      NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, shooter, 0.6, 0.4));
-    // NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, true));
+    NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, shooter, 0.6, 0.4));
+    NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, true, 0.7));
 
     configureBindings();
 
     Command driveSwerve = swerve.driveCommand(
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1), Constants.ControllerDeadband) * 0.7,
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0), Constants.ControllerDeadband) * 0.7,
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1), Constants.ControllerDeadband),
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0), Constants.ControllerDeadband),
         () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, true);
 
-    Command shoot = new shootCmd(shooter, false, () -> AmaryanController.getLeftY(),() -> AmaryanController.getRightY());
+    // Command shoot = new shootCmd(shooter, false, () -> AmaryanController.getLeftY(),() -> AmaryanController.getRightY());
+    Command climb = new climberCmd(climber, 
+    () -> -MathUtil.applyDeadband(AmaryanController.getLeftY() * 0.7, 0.1),
+    () -> -MathUtil.applyDeadband(AmaryanController.getRightY() * 0.7, Constants.ControllerDeadband));
+    // shooter.setDefaultCommand(shoot);
+    climber.setDefaultCommand(climb);
 
-    shooter.setDefaultCommand(shoot);
-
-    // swerve.setDefaultCommand(driveSwerve);
+    swerve.setDefaultCommand(driveSwerve);
 
   }
 
   private void configureBindings() {
 
     new JoystickButton(WakakeController, 3).whileTrue(Commands.runOnce(swerve::zeroGyro));
-    new JoystickButton(WakakeController, 8).whileTrue(new intakeCmd(intake, shooter, 0, 0.6));
-    new JoystickButton(WakakeController, 1).whileTrue(new NoteAlign(swerve));
-    // new JoystickButton(WakakeController, 6).whileTrue(new SpeakerAlign(swerve));
+    new JoystickButton(WakakeController, 8).whileTrue(new intakeCmd(intake, shooter, 0.6, 0.7));
+    new JoystickButton(WakakeController, 7).whileTrue(new intakeCmd(intake, shooter, -0.6, 0));
+    new JoystickButton(WakakeController, 2).whileTrue(new NoteAlign(swerve));
+    new JoystickButton(WakakeController, 4).whileTrue(new SpeakerAlign(swerve));
     
 
     AmaryanController.rightTrigger().whileTrue(new armPID(arm, Constants.Arm.MaxPose));
     AmaryanController.leftTrigger().whileTrue(new armPID(arm, Constants.Arm.MinPose));
     AmaryanController.rightBumper().onTrue(new hoodPID(hood, Constants.Hood.minPose));
     AmaryanController.leftBumper().onTrue(new hoodPID(hood, Constants.Hood.maxPose));
-    // AmaryanController.a().whileTrue(new shootCmd(shooter, false));
+    AmaryanController.a().whileTrue(new shootCmd(shooter, true, 0.8));
     AmaryanController.button(8).whileTrue(Commands.runOnce(hood::zeroHood));
     AmaryanController.b().toggleOnTrue(new hoodPID(hood, Constants.Hood.maxPose / 2));
 
-    AmaryanController.povUp().whileTrue(new climberCmd(climber, 1));
-    AmaryanController.povDown().whileTrue(new climberCmd(climber, -1));
+ 
   }
 
   public Command getAutonomousCommand() {

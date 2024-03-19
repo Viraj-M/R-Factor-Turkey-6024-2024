@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.45,
-      "y": 5.55
+      "x": 0.46439095355482624,
+      "y": 6.863676815710363
     },
     "rotation": 0
   },
@@ -14,29 +14,23 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopPath1"
+            "pathName": "Copy of Full Path1"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "shootCmd"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "TopPath2"
+                  "name": "shootCmd"
                 }
               },
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "intakeCmd"
+                  "waitTime": 2.0
                 }
               }
             ]
@@ -45,13 +39,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopPath3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootCmd"
+            "pathName": null
           }
         }
       ]

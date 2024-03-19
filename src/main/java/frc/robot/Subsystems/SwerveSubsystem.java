@@ -31,7 +31,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final SwerveDrive swerveDrive;
 
-    public double maximumSpeed = 1;
+    public double maximumSpeed = 4.5;
 
     /**
      * Initialize {@link SwerveDrive} with the directory provided.
@@ -40,7 +40,7 @@ public class SwerveSubsystem extends SubsystemBase {
      */
     public SwerveSubsystem(File directory) {
 
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
             // Alternative method if you don't want to supply the conversion factor via JSON

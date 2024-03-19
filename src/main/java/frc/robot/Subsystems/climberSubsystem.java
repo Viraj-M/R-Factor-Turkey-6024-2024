@@ -27,38 +27,9 @@ public class climberSubsystem extends SubsystemBase {
   public void periodic() {
   }
 
-  public void setMotor(double speed) {
-    // if (speed > 0) {
-    //   if (getLeftEncoder() <= Constants.Climber.maxPose) {
-    //     motorLeft.set(speed);
-    //   } else {
-    //     motorLeft.set(0);
-    //   }
-
-    //   if (getRightEncoder() <= Constants.Climber.maxPose) {
-    //     motorRight.set(speed);
-    //   } else {
-    //     motorRight.set(0);
-    //   }
-
-    // } else if (speed < 0) {
-    //   if (getLeftEncoder() >= Constants.Climber.minPose) {
-    //     motorLeft.set(speed);
-    //   } else {
-    //     motorLeft.set(0);
-    //   }
-
-    //   if (getRightEncoder() >= Constants.Climber.minPose) {
-    //     motorRight.set(speed);
-    //   } else {
-    //     motorRight.set(0);
-    //   }
-    // } else {
-    //   motorLeft.set(0);
-    //   motorRight.set(0);
-    // }
-    motorLeft.set(speed);
-    motorRight.set(speed);
+  public void setMotor(double speed_left, double speed_right) {
+    motorLeft.set(speed_left);
+    motorRight.set(speed_right);
   }
 
   public double getLeftEncoder(){
