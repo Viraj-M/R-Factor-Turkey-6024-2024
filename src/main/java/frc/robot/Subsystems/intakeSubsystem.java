@@ -29,9 +29,9 @@ public class intakeSubsystem extends SubsystemBase {
   public void periodic() {
   }
 
-  public void setMotors(double speed) {
-    leftMotor.set(speed);
-    rightMotor.set(speed);
+  public void setMotors(double speedLeft, double speedRight) {
+    leftMotor.set(speedLeft);
+    rightMotor.set(speedRight);
   }
 
   public double getLeftEncoder(){

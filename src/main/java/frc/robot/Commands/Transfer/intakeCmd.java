@@ -26,12 +26,14 @@ public class intakeCmd extends Command {
   public void initialize() {
     endLoop = false;
     everTrue = false;
-  }
+    SmartDashboard.putBoolean("Limitz Switch", endLoop);
 
+  }
+        
   @Override
   public void execute() {
 
-    Intake.setMotors(intakeSpeed);
+    Intake.setMotors(intakeSpeed, intakeSpeed);
     shooter.Loader(loaderSpeed);
 
     if (shooter.limitSwitch()) {
@@ -40,16 +42,17 @@ public class intakeCmd extends Command {
       endLoop = true;
     }
 
+    SmartDashboard.putBoolean("Limit Switch", endLoop);
     if (Constants.smartEnable) {
-      SmartDashboard.putBoolean("Limit Switch", shooter.limitSwitch());
       SmartDashboard.putBoolean("Intake", true);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Intake.setMotors(0);
+    Intake.setMotors(0, 0);
     shooter.Loader(0);
+    SmartDashboard.putBoolean("Limit Switch", endLoop);
     if (Constants.smartEnable) {
       SmartDashboard.putBoolean("Intake", false);
     }

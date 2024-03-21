@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.36,
+        "x": 1.8,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3599999999999994,
+        "x": 1.86,
         "y": 5.55
       },
       "isLocked": false,
@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.629272310567743,
-        "y": 5.55
+        "x": 2.2,
+        "y": 4.1
       },
       "prevControl": {
-        "x": 1.629272310567743,
-        "y": 5.55
+        "x": 2.1700000000000004,
+        "y": 4.1
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,31 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.9,
-      "command": {
-        "type": "race",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeCmd"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 1.5
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.0,
@@ -63,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "4Note",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

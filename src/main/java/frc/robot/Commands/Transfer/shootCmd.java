@@ -26,28 +26,29 @@ public class shootCmd extends Command {
     speed = 0;
     endLoop = false;
     timer = 0;
+    SmartDashboard.putNumber("Shooter Speed", speed);
   }
 
   @Override
   public void execute() {
-    speed = speed + (maxSpeed - speed) / 25;
+    speed = speed + (maxSpeed - speed) / 40;
 
     if (speed > maxSpeed - 0.05) {
       speed = maxSpeed;
       timer++;
     }
 
-    if (timer > 25 && autoShoot) {
+    if (timer > 50 && autoShoot) {
       shooter.Loader(1);
     }
 
-    if (timer > 50 && autoShoot) {
+    if (timer > 80 && autoShoot) {
       endLoop = true;
     }
 
+    SmartDashboard.putNumber("Shooter Speed", speed);
     if (Constants.smartEnable) {
       SmartDashboard.putBoolean("ShootCmd", true);
-      SmartDashboard.putNumber("Shooter Speed", speed);
     }
 
     shooter.setMotors(speed, speed);
@@ -55,6 +56,8 @@ public class shootCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
+    speed = 0;
+    SmartDashboard.putNumber("Shooter Speed", speed);
     shooter.setMotors(0, 0);
     shooter.Loader(0);
     if (Constants.smartEnable) {
