@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.8,
-        "y": 5.55
+        "x": 8.15,
+        "y": 0.77
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.86,
-        "y": 5.55
+        "x": 6.815620171293303,
+        "y": 0.6080575001743445
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.2,
-        "y": 4.1
+        "x": 4.0,
+        "y": 2.5
       },
       "prevControl": {
-        "x": 2.1700000000000004,
-        "y": 4.1
+        "x": 4.561958190806667,
+        "y": 2.0012303608388105
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,19 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 4.0,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 720.0,
+        "maxAngularAcceleration": 540.0
+      }
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
@@ -39,14 +51,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -40.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "3NoteBottom",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
+    "rotation": 0.0,
+    "velocity": 0.0
   },
   "useDefaultConstraints": true
 }

@@ -2,32 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.45,
-      "y": 5.55
+      "x": 0.84,
+      "y": 4.41
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Top Path1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "shootCmd"
-                }
-              }
-            ]
+            "name": "shootCmd"
           }
         },
         {
@@ -37,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Top Path2"
+                  "pathName": "3NoteBottomPath1"
                 }
               },
               {
@@ -52,32 +39,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Path3"
+            "pathName": "3NoteBottomPath2"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Top Path3.5"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "shootCmd"
-                }
-              }
-            ]
+            "name": "Note3Ang"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootCmd"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top Path4"
+            "pathName": "3NoteBottomPath3"
           }
         },
         {
@@ -87,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Top Path5"
+                  "pathName": "3NoteBottomPath3.5"
                 }
               },
               {
@@ -102,26 +82,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Path6"
+            "pathName": "3NoteBottomPath4"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Note3Ang"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
+            "name": "iiylsd"
           }
         },
         {

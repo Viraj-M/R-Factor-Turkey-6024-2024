@@ -11,18 +11,21 @@ public class armPID extends Command {
   private final armSubystem Arm;
   private double targetPose;
   private PIDController PIDarm;
+  private boolean endLoop = false;
+  private boolean holdPID;
 
-  public armPID(armSubystem subsystem, double targetPose) {
+  public armPID(armSubystem subsystem, double targetPose, boolean holdPID) {
     this.Arm = subsystem;
     this.targetPose = targetPose;
     this.PIDarm = new PIDController(Constants.Arm.kp, 0, Constants.Arm.kd);
+    this.holdPID = !holdPID;
 
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-
+    endLoop = false;
     PIDarm.setSetpoint(targetPose);
   }
 
@@ -37,6 +40,9 @@ public class armPID extends Command {
       speed = -Constants.Arm.maxSpeed+0.2;
     }
     Arm.setMotors(speed);
+    if (speed < 0.07 && holdPID){
+      endLoop = true;
+    }
 
     if (Constants.smartEnable) {
       SmartDashboard.putNumber("Arm Position", Arm.getAbsoluteEncoder());
@@ -53,6 +59,6 @@ public class armPID extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return endLoop;
   }
 }

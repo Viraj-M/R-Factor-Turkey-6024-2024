@@ -25,8 +25,8 @@ public class SpeakerAlign extends Command {
 
     public SpeakerAlign(SwerveSubsystem swerve) {
         this.swerve = swerve;
-        this.PIDang = new PIDController(2, 0, 0.1);
-        this.PIDmove = new PIDController(3.5, 0, 0.1);
+        this.PIDang = new PIDController(3, 0, 0.1);
+        this.PIDmove = new PIDController(4.5, 0, 0.1);
 
         addRequirements(swerve);
     }
@@ -64,15 +64,15 @@ public class SpeakerAlign extends Command {
                 double AngleL = Math.tanh(l / d);
 
                 PIDang.setSetpoint(0);
-                PIDmove.setSetpoint(1.5);
+                PIDmove.setSetpoint(1.3);
 
                 double rot = PIDang.calculate(AngleL);
                 double x = PIDmove.calculate(d1);
                 
                 if (x > 0) {
-                    x = Math.min(x, 0.8);
+                    x = Math.min(x, 1);
                 } else if (x < 0){
-                    x = Math.max(x, -0.8);
+                    x = Math.max(x, -1);
                 } else{
                     x = 0;
                 }

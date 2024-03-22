@@ -44,6 +44,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, loader, 0.8, 0.4));
     NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, loader, true, 1));
+    NamedCommands.registerCommand("Note3Ang", new armPID(arm,0.1, false));
+    NamedCommands.registerCommand("iiylsd", new armPID(arm,0.2, false));
 
     configureBindings();
 
@@ -53,8 +55,8 @@ public class RobotContainer {
     //     () -> getAsInt(WakakeController.getHID().getLeftBumper()) - getAsInt(WakakeController.getHID().getRightBumper()), false, true);
 
         Command driveSwerve = swerve.driveCommand(
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1), Constants.ControllerDeadband),
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0) * 0.8, Constants.ControllerDeadband),
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1) * 2, Constants.ControllerDeadband),
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0) * 2, Constants.ControllerDeadband),
         () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, () -> true);
 
         //         Command driveSwerve = swerve.driveCommand(
@@ -105,13 +107,13 @@ public class RobotContainer {
     // AmaryanController.button(8).whileTrue(Commands.runOnce(hood::zeroHood));
     // AmaryanController.b().toggleOnTrue(new hoodPID(hood, Constants.Hood.maxPose / 2));
 
-    MarkRoberController.R2().whileTrue(new armPID(arm, Constants.Arm.MaxPose));
-    MarkRoberController.L2().whileTrue(new armPID(arm, Constants.Arm.MinPose));
+    MarkRoberController.R2().whileTrue(new armPID(arm, Constants.Arm.MaxPose, true));
+    MarkRoberController.L2().whileTrue(new armPID(arm, Constants.Arm.MinPose, true));
     MarkRoberController.cross().whileTrue(new shootCmd(shooter, loader, false, 1));
     MarkRoberController.R1().whileTrue(new intakeCmd(intake, loader, 0, 1));
   }
   public Command getAutonomousCommand() {
-    return swerve.getAutonomousCommand("Bottom3");
+    return swerve.getAutonomousCommand("3NoteBottom");
   }
 
   public double getAsInt(boolean bollean) {

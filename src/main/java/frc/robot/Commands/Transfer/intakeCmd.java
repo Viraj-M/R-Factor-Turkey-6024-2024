@@ -26,7 +26,7 @@ public class intakeCmd extends Command {
   public void initialize() {
     endLoop = false;
     everTrue = false;
-    SmartDashboard.putBoolean("Limitz Switch", endLoop);
+    SmartDashboard.putBoolean("Limit Switch", endLoop);
 
   }
         

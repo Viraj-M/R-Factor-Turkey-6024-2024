@@ -41,11 +41,11 @@ public class shootCmd extends Command {
       timer++;
     }
 
-    if (timer > 50 && autoShoot) {
+    if (timer > 22 && autoShoot) {
       loader.setMotors(1);
     }
 
-    if (timer > 80 && autoShoot) {
+    if (timer > 50 && autoShoot) {
       endLoop = true;
     }
 
