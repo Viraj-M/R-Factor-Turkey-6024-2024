@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutonConstants;
 import java.io.File;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -40,7 +41,7 @@ public class SwerveSubsystem extends SubsystemBase {
      */
     public SwerveSubsystem(File directory) {
 
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
+        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
             // Alternative method if you don't want to supply the conversion factor via JSON
@@ -81,7 +82,7 @@ public class SwerveSubsystem extends SubsystemBase {
      * @return Drive command.
      */
     public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY,
-            DoubleSupplier angularRotationX, Boolean HeadingCorrection, Boolean FieldRelativity) {
+            DoubleSupplier angularRotationX, Boolean HeadingCorrection, BooleanSupplier FieldRelativity) {
         swerveDrive.setHeadingCorrection(HeadingCorrection);
         return run(() -> {
             // Make the robot move
@@ -89,7 +90,7 @@ public class SwerveSubsystem extends SubsystemBase {
                     new Translation2d(Math.pow(translationX.getAsDouble(), 3) * swerveDrive.getMaximumVelocity(),
                             Math.pow(translationY.getAsDouble(), 3) * swerveDrive.getMaximumVelocity()),
                     Math.pow(angularRotationX.getAsDouble(), 3) * swerveDrive.getMaximumAngularVelocity(),
-                    FieldRelativity,
+                    FieldRelativity.getAsBoolean(),
                     false);
         });
     }

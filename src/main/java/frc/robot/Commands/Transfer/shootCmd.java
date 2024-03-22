@@ -1,6 +1,7 @@
 package frc.robot.Commands.Transfer;
 
 import frc.robot.Constants;
+import frc.robot.Subsystems.loaderSubsystem;
 import frc.robot.Subsystems.shooterSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,16 +9,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class shootCmd extends Command {
   private final shooterSubsystem shooter;
+  private final loaderSubsystem loader;
   double speed = 0;
   boolean autoShoot;
   boolean endLoop = false;
   double timer = 0;
   double maxSpeed;
 
-  public shootCmd(shooterSubsystem shooter, boolean autoShoot, double maxSpeed) {
+  public shootCmd(shooterSubsystem shooter, loaderSubsystem loader, boolean autoShoot, double maxSpeed) {
     this.shooter = shooter;
     this.autoShoot = autoShoot;
     this.maxSpeed = maxSpeed;
+    this.loader = loader;
     addRequirements(shooter);
   }
 
@@ -39,7 +42,7 @@ public class shootCmd extends Command {
     }
 
     if (timer > 50 && autoShoot) {
-      shooter.Loader(1);
+      loader.setMotors(1);
     }
 
     if (timer > 80 && autoShoot) {
@@ -59,7 +62,7 @@ public class shootCmd extends Command {
     speed = 0;
     SmartDashboard.putNumber("Shooter Speed", speed);
     shooter.setMotors(0, 0);
-    shooter.Loader(0);
+    loader.setMotors(0);
     if (Constants.smartEnable) {
       SmartDashboard.putBoolean("shootCmd", false);
 

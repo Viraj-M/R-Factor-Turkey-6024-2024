@@ -32,18 +32,18 @@ public class RobotContainer {
       "JsonConstants"));
   private final armSubystem arm = new armSubystem();
   private final shooterSubsystem shooter = new shooterSubsystem();
+  private final loaderSubsystem loader = new loaderSubsystem();
   private final intakeSubsystem intake = new intakeSubsystem();
-  private final hoodSubsystem hood = new hoodSubsystem();
   private final climberSubsystem climber = new climberSubsystem();
   final Joystick WakakeController = new Joystick(0);
-  // final CommandXboxController WakakeController = new CommandXboxController(0);
   // final CommandXboxController AmaryanController = new %CommandXboxController(1);
   final CommandPS5Controller MarkRoberController = new CommandPS5Controller(1);
+  final CommandPS5Controller driveController2 = new CommandPS5Controller(0);
 
   public RobotContainer() {
 
-    NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, shooter, 0.8, 0.4));
-    NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, true, 1));
+    NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, loader, 0.8, 0.4));
+    NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, loader, true, 1));
 
     configureBindings();
 
@@ -53,10 +53,15 @@ public class RobotContainer {
     //     () -> getAsInt(WakakeController.getHID().getLeftBumper()) - getAsInt(WakakeController.getHID().getRightBumper()), false, true);
 
         Command driveSwerve = swerve.driveCommand(
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1) * 1, Constants.ControllerDeadband),
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0) * 1, Constants.ControllerDeadband),
-        () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, true);
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1), Constants.ControllerDeadband),
+        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0) * 0.8, Constants.ControllerDeadband),
+        () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, () -> true);
 
+        //         Command driveSwerve = swerve.driveCommand(
+        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(1) * 0.85, Constants.ControllerDeadband),
+        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(0) * 0.85, Constants.ControllerDeadband),
+        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(2) * 0.85, Constants.ControllerDeadband), false, 
+        // () -> driveController2.getHID().getL1Button());
     // Command climb = new climberCmd(climber, 
     // () -> -MathUtil.applyDeadband(AmaryanController.getLeftY() * 0.7, 0.1),
     // () -> -MathUtil.applyDeadband(AmaryanController.getRightY() * 0.7, Constants.ControllerDeadband));
@@ -73,10 +78,18 @@ public class RobotContainer {
   private void configureBindings() {
 
     new JoystickButton(WakakeController, 3).whileTrue(Commands.runOnce(swerve::zeroGyro));
-    new JoystickButton(WakakeController, 8).whileTrue(new intakeCmd(intake, shooter, 0.8, 0.7));
-    new JoystickButton(WakakeController, 7).whileTrue(new intakeCmd(intake, shooter, -0.8, 0));
+    new JoystickButton(WakakeController, 8).whileTrue(new intakeCmd(intake, loader, 1, 0.7));
+    new JoystickButton(WakakeController, 7).whileTrue(new intakeCmd(intake, loader, -1, 0));
     new JoystickButton(WakakeController, 11).whileTrue(new NoteAlign(swerve));
     new JoystickButton(WakakeController, 2).whileTrue(new SpeakerAlign(swerve));
+
+
+    // driveController2.povUp().whileTrue(Commands.runOnce(swerve::zeroGyro));
+    // driveController2.R2().whileTrue(new intakeCmd(intake, shooter, 1, 0.7));
+    // driveController2.L2().whileTrue(new  intakeCmd(intake, shooter, -1, 0));
+    // driveController2.R1().whileTrue(new NoteAlign(swerve));
+    // driveController2.L1().whileTrue(new SpeakerAlign(swerve));
+
 
     // WakakeController.b().whileTrue(Commands.runOnce(swerve::zeroGyro));
     // WakakeController.rightTrigger().whileTrue(new intakeCmd(intake, shooter, 0.6, 0.7));
@@ -94,11 +107,8 @@ public class RobotContainer {
 
     MarkRoberController.R2().whileTrue(new armPID(arm, Constants.Arm.MaxPose));
     MarkRoberController.L2().whileTrue(new armPID(arm, Constants.Arm.MinPose));
-    MarkRoberController.R1().onTrue(new hoodPID(hood, Constants.Hood.maxPose));
-    MarkRoberController.L1().onTrue(new hoodPID(hood, Constants.Hood.minPose));
-    MarkRoberController.cross().whileTrue(new shootCmd(shooter, false, 1      ));
-    MarkRoberController.povUp().whileTrue(Commands.runOnce(hood::zeroHood));
-    MarkRoberController.povDown().toggleOnTrue(new hoodPID(hood, Constants.Hood.maxPose / 2));
+    MarkRoberController.cross().whileTrue(new shootCmd(shooter, loader, false, 1));
+    MarkRoberController.R1().whileTrue(new intakeCmd(intake, loader, 0, 1));
   }
   public Command getAutonomousCommand() {
     return swerve.getAutonomousCommand("Bottom3");

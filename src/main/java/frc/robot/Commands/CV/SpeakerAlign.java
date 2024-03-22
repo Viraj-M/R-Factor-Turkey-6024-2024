@@ -25,8 +25,8 @@ public class SpeakerAlign extends Command {
 
     public SpeakerAlign(SwerveSubsystem swerve) {
         this.swerve = swerve;
-        this.PIDang = new PIDController(1, 0, 0.1);
-        this.PIDmove = new PIDController(2.5, 0, 0.1);
+        this.PIDang = new PIDController(2, 0, 0.1);
+        this.PIDmove = new PIDController(3.5, 0, 0.1);
 
         addRequirements(swerve);
     }
@@ -64,24 +64,24 @@ public class SpeakerAlign extends Command {
                 double AngleL = Math.tanh(l / d);
 
                 PIDang.setSetpoint(0);
-                PIDmove.setSetpoint(1.8);
+                PIDmove.setSetpoint(1.5);
 
                 double rot = PIDang.calculate(AngleL);
                 double x = PIDmove.calculate(d1);
                 
                 if (x > 0) {
-                    x = Math.min(x, 0.3);
+                    x = Math.min(x, 0.8);
                 } else if (x < 0){
-                    x = Math.max(x, -0.3);
+                    x = Math.max(x, -0.8);
                 } else{
                     x = 0;
                 }
 
-                if (Math.abs(x) < 0.08 && Math.abs(rot) < 0.08) {
+                if (Math.abs(x) < 0.1 && Math.abs(rot) < 0.1) {
                     endLoop = true;
                 }
 
-                swerve.drive(new Translation2d(0,0), rot, false);
+                swerve.drive(new Translation2d(x,0), rot, false);
 
                 if (Constants.smartEnable) {
                     SmartDashboard.putBoolean("SpeakerAlign", true);

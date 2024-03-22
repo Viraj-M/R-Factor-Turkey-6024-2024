@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.2,
-        "y": 7.0
+        "x": 2.75,
+        "y": 4.2
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2600000000000033,
-        "y": 7.0
+        "x": 2.75,
+        "y": 4.14
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.6,
+        "x": 2.9,
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.5700000000000003,
-        "y": 7.0
+        "x": 2.9,
+        "y": 7.06
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,9 +38,9 @@
     "maxAngularAcceleration": 540.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0,
-    "rotateFast": false
+    "velocity": 0.0,
+    "rotation": 90.0,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "4Note",

@@ -2,21 +2,21 @@ package frc.robot.Commands.Transfer;
 
 import frc.robot.Constants;
 import frc.robot.Subsystems.intakeSubsystem;
-import frc.robot.Subsystems.shooterSubsystem;
+import frc.robot.Subsystems.loaderSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class intakeCmd extends Command {
   private final intakeSubsystem Intake;
-  private final shooterSubsystem shooter;
+  private final loaderSubsystem loader;
   private final double intakeSpeed;
   private final double loaderSpeed;
   private boolean everTrue = false;
   private boolean endLoop = false;
 
-  public intakeCmd(intakeSubsystem Intake, shooterSubsystem shooter, double intakeSpeed, double loaderSpeed) {
+  public intakeCmd(intakeSubsystem Intake, loaderSubsystem loader, double intakeSpeed, double loaderSpeed) {
     this.Intake = Intake;
-    this.shooter = shooter;
+    this.loader = loader;
     this.intakeSpeed = intakeSpeed;
     this.loaderSpeed = loaderSpeed;
     addRequirements(Intake);
@@ -34,11 +34,11 @@ public class intakeCmd extends Command {
   public void execute() {
 
     Intake.setMotors(intakeSpeed, intakeSpeed);
-    shooter.Loader(loaderSpeed);
+    loader.setMotors(loaderSpeed);
 
-    if (shooter.limitSwitch()) {
+    if (loader.limitSwitch()) {
       everTrue = true;
-    } else if (everTrue && !shooter.limitSwitch()) {
+    } else if (everTrue && !loader.limitSwitch()) {
       endLoop = true;
     }
 
@@ -51,7 +51,7 @@ public class intakeCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     Intake.setMotors(0, 0);
-    shooter.Loader(0);
+    loader.setMotors(0);
     SmartDashboard.putBoolean("Limit Switch", endLoop);
     if (Constants.smartEnable) {
       SmartDashboard.putBoolean("Intake", false);

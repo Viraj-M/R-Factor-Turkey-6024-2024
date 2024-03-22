@@ -10,7 +10,7 @@ public class Constants {
     public static final double ROBOT_MASS = 56;
     public static final Matter CHASSIS    = new Matter(new Translation3d(0.1, 0, Units.inchesToMeters(2)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final boolean smartEnable = false;
+    public static final boolean smartEnable = true;
     public static final double ControllerDeadband = 0.05;
     
     public static final class AutonConstants
@@ -51,21 +51,9 @@ public class Constants {
     //0.15
   }
 
-  public static class Hood
-  {
-    public static final int hoodID = 21;
-    public static final double kp = 0.28;
-    public static final double kd = 0.001;
-    public static final double maxSpeed = 0.2;
-    public static final double maxPose = 12;
-    public static final double minPose = 0;
-  }
-
-
-
   public static class Loader
   {
-    public static final int loaderID = 18;
+    public static final int loaderID = 21;
     public static final boolean motorInvert = true; 
     public static final int limitSwitch = 9;
   }
