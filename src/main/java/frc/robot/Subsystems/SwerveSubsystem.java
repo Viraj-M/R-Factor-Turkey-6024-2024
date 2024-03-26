@@ -41,7 +41,7 @@ public class SwerveSubsystem extends SubsystemBase {
      */
     public SwerveSubsystem(File directory) {
 
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE;
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
             // Alternative method if you don't want to supply the conversion factor via JSON
@@ -138,7 +138,7 @@ public class SwerveSubsystem extends SubsystemBase {
                         // Translation PID constants
                         AutonConstants.ANGLE_PID,
                         // Rotation PID constants
-                        2,
+                        3,
                         // Max module speed, in m/s
                         swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                         // Drive base radius in meters. Distance from robot center to furthest module.
@@ -178,7 +178,7 @@ public class SwerveSubsystem extends SubsystemBase {
     public Command driveToPose(Pose2d pose) {
         // Create the constraints to use while pathfinding
         PathConstraints constraints = new PathConstraints(
-                2,1.5,
+                3,1.5,
                 Units.degreesToRadians(360), Units.degreesToRadians(180));
         // PathConstraints constraints = new PathConstraints(4.5, 3.5,
         // Units.degreesToRadians(720), Units.degreesToRadians(540));

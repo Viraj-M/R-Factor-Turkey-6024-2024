@@ -36,7 +36,7 @@ public class RobotContainer {
   private final intakeSubsystem intake = new intakeSubsystem();
   private final climberSubsystem climber = new climberSubsystem();
   final Joystick WakakeController = new Joystick(0);
-  // final CommandXboxController AmaryanController = new %CommandXboxController(1);
+  // final CommandXboxController AmaryanController = new CommandXboxController(1);
   final CommandPS5Controller MarkRoberController = new CommandPS5Controller(1);
   final CommandPS5Controller driveController2 = new CommandPS5Controller(0);
 
@@ -44,30 +44,19 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCmd", new intakeCmd(intake, loader, 0.8, 0.4));
     NamedCommands.registerCommand("shootCmd", new shootCmd(shooter, loader, true, 1));
-    NamedCommands.registerCommand("Note3Ang", new armPID(arm,0.1, false));
-    NamedCommands.registerCommand("iiylsd", new armPID(arm,0.2, false));
+    NamedCommands.registerCommand("Note3Ang", new armPID(arm,0.057, false));
+    NamedCommands.registerCommand("resetArm", new armPID(arm,0, false));
+    NamedCommands.registerCommand("iiylsd", new armPID(arm,0.1, false));
+    NamedCommands.registerCommand("ArmIntake", new armPID(arm,Constants.Arm.MinPose, true));
+
 
     configureBindings();
 
-    // Command driveSwerve = swerve.driveCommand(
-    //     () -> -MathUtil.applyDeadband(WakakeController.getLeftY(), Constants.ControllerDeadband),
-    //     () -> -MathUtil.applyDeadband(WakakeController.getLeftX(), Constants.ControllerDeadband),
-    //     () -> getAsInt(WakakeController.getHID().getLeftBumper()) - getAsInt(WakakeController.getHID().getRightBumper()), false, true);
-
-        Command driveSwerve = swerve.driveCommand(
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1) * 2, Constants.ControllerDeadband),
-        () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0) * 2, Constants.ControllerDeadband),
-        () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, () -> true);
-
-        //         Command driveSwerve = swerve.driveCommand(
-        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(1) * 0.85, Constants.ControllerDeadband),
-        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(0) * 0.85, Constants.ControllerDeadband),
-        // () -> -MathUtil.applyDeadband(driveController2.getRawAxis(2) * 0.85, Constants.ControllerDeadband), false, 
-        // () -> driveController2.getHID().getL1Button());
-    // Command climb = new climberCmd(climber, 
-    // () -> -MathUtil.applyDeadband(AmaryanController.getLeftY() * 0.7, 0.1),
-    // () -> -MathUtil.applyDeadband(AmaryanController.getRightY() * 0.7, Constants.ControllerDeadband));
-
+    Command driveSwerve = swerve.driveCommand(
+      () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(1), Constants.ControllerDeadband),
+      () -> -MathUtil.applyDeadband(WakakeController.getRawAxis(0), Constants.ControllerDeadband),
+      () -> getAsInt(WakakeController.getRawButton(5)) - getAsInt(WakakeController.getRawButton(6)), false, () -> true);
+      
     Command climb = new climberCmd(climber, 
     () -> -MathUtil.applyDeadband(MarkRoberController.getLeftY(), Constants.ControllerDeadband), 
     () -> -MathUtil.applyDeadband(MarkRoberController.getRightY(), Constants.ControllerDeadband));
@@ -85,40 +74,20 @@ public class RobotContainer {
     new JoystickButton(WakakeController, 11).whileTrue(new NoteAlign(swerve));
     new JoystickButton(WakakeController, 2).whileTrue(new SpeakerAlign(swerve));
 
-
-    // driveController2.povUp().whileTrue(Commands.runOnce(swerve::zeroGyro));
-    // driveController2.R2().whileTrue(new intakeCmd(intake, shooter, 1, 0.7));
-    // driveController2.L2().whileTrue(new  intakeCmd(intake, shooter, -1, 0));
-    // driveController2.R1().whileTrue(new NoteAlign(swerve));
-    // driveController2.L1().whileTrue(new SpeakerAlign(swerve));
-
-
-    // WakakeController.b().whileTrue(Commands.runOnce(swerve::zeroGyro));
-    // WakakeController.rightTrigger().whileTrue(new intakeCmd(intake, shooter, 0.6, 0.7));
-    // WakakeController.leftTrigger().whileTrue(new intakeCmd(intake, shooter, -0.6, 0));
-    // WakakeController.leftStick().whileTrue(new NoteAlign(swerve));
-    // WakakeController.y().whileTrue(new SpeakerAlign(swerve));
-    
-    // AmaryanController.rightTrigger().whileTrue(new armPID(arm, Constants.Arm.MaxPose));
-    // AmaryanController.leftTrigger().whileTrue(new armPID(arm, Constants.Arm.MinPose));
-    // AmaryanController.rightBumper().onTrue(new hoodPID(hood, Constants.Hood.minPose));
-    // AmaryanController.leftBumper().onTrue(new hoodPID(hood, Constants.Hood.maxPose));
-    // AmaryanController.a().whileTrue(new shootCmd(shooter, true, 0.8));
-    // AmaryanController.button(8).whileTrue(Commands.runOnce(hood::zeroHood));
-    // AmaryanController.b().toggleOnTrue(new hoodPID(hood, Constants.Hood.maxPose / 2));
-
     MarkRoberController.R2().whileTrue(new armPID(arm, Constants.Arm.MaxPose, true));
-    MarkRoberController.L2().whileTrue(new armPID(arm, Constants.Arm.MinPose, true));
+    MarkRoberController.L2().onTrue(new armPID(arm, Constants.Arm.MinPose, true));
     MarkRoberController.cross().whileTrue(new shootCmd(shooter, loader, false, 1));
-    MarkRoberController.R1().whileTrue(new intakeCmd(intake, loader, 0, 1));
+    MarkRoberController.R1().whileTrue(new intakeCmd(intake, loader, 0, 0.8));
+    MarkRoberController.triangle().whileTrue(new shootCmd(shooter, loader, true, 1));
+
   }
   public Command getAutonomousCommand() {
-    return swerve.getAutonomousCommand("3NoteBottom");
-  }
+    return swerve.getAutonomousCommand("Three note");
+  }     
 
   public double getAsInt(boolean bollean) {
     if (bollean) {
-      return 1;
+      return 0.8;
         } else {
       return 0;
     }

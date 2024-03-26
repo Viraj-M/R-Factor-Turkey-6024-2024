@@ -18,22 +18,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "3NoteBottomPath1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intakeCmd"
-                }
-              }
-            ]
+            "pathName": "3NoteBottomPath1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeCmd"
           }
         },
         {
@@ -55,28 +48,34 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "3NoteBottomPath3"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3NoteBottomPath3.5"
+                  "pathName": "3NoteBottomPath3"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intakeCmd"
+                  "name": "resetArm"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3NoteBottomPath3.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeCmd"
           }
         },
         {

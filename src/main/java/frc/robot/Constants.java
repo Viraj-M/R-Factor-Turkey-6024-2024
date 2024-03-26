@@ -10,7 +10,7 @@ public class Constants {
     public static final double ROBOT_MASS = 56;
     public static final Matter CHASSIS    = new Matter(new Translation3d(0.1, 0, Units.inchesToMeters(2)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final boolean smartEnable = true;
+    public static final boolean smartEnable = false;
     public static final double ControllerDeadband = 0.05;
     
     public static final class AutonConstants
@@ -44,7 +44,7 @@ public class Constants {
     public static final boolean rightInvert = true; 
     public static final double absoluteOffset = 0.582;
     public static final double MaxPose = 0.295;
-    public static final double MinPose = 0.007;
+    public static final double MinPose = 0.013;
     public static final int absoluteInvert = -1;
     public static final double kp = 13;
     public static final double kd = 0.03;
@@ -63,7 +63,7 @@ public class Constants {
     public static final int shooterTopID = 20;
     public static final int shooterBottomID = 19;
     public static boolean leftInvert = false; 
-    public static boolean rightInvert = false; 
+    public static boolean rightInvert = true; 
     public static double shootSpeed = 1;
     public static double kp = 0.001;
     public static double kd = 0.001;

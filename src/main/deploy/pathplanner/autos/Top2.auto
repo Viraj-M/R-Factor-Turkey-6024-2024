@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7170742665184753,
-      "y": 6.563188551645477
+      "x": 0.7,
+      "y": 6.65
     },
     "rotation": 60.0
   },
@@ -11,12 +11,6 @@
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top2Path0"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -37,6 +31,12 @@
                 "type": "named",
                 "data": {
                   "name": "intakeCmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmIntake"
                 }
               }
             ]
